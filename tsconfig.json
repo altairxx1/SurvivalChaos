@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { "lib": ["ES2022", "DOM", "DOM.Iterable"], "types": ["node", "vite/client"], "noEmit": true },
+  "include": ["src", "tools", "tests", "vite.config.ts", "vitest.config.ts"]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "survival-chaos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Standalone browser remake of the Warcraft III custom map Survival Chaos (Sur5al).",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc -p tsconfig.app.json --noEmit && vite build",
+    "preview": "vite preview --host",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.sim.json --noEmit",
+    "lint": "eslint src tools tests",
+    "test": "vitest run",
+    "sim:headless": "tsx tools/sim/headless.ts",
+    "extract": "tsx tools/extract/cli.ts",
+    "fetch-assets": "node tools/assets/fetch-assets.mjs",
+    "electron:dev": "cross-env ELECTRON_DEV_URL=http://localhost:5173 electron .",
+    "electron:start": "npm run build && electron .",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.11.2",
+    "preact": "^10.29.8",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.2",
+    "@types/three": "^0.186.0",
+    "cross-env": "^10.1.0",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.1"
+  }
+}
