@@ -17,7 +17,9 @@
     "fetch-assets": "node tools/assets/fetch-assets.mjs",
     "electron:dev": "cross-env ELECTRON_DEV_URL=http://localhost:5173 electron .",
     "electron:start": "npm run build && electron .",
-    "electron:build": "npm run build && electron-builder"
+    "electron:build": "npm run build && electron-builder",
+    "build-packs": "tsx tools/extract/build-packs.ts",
+    "wiki": "tsx tools/wiki/scrape.ts"
   },
   "dependencies": {
     "@preact/signals": "^2.11.2",
@@ -29,6 +31,7 @@
     "@preact/preset-vite": "^2.10.6",
     "@types/node": "^26.6.2",
     "@types/three": "^0.186.0",
+    "@wowserhq/stormjs": "^0.4.1",
     "cross-env": "^10.1.0",
     "electron": "^44.4.5",
     "electron-builder": "^26.15.3",
@@ -39,5 +42,26 @@
     "typescript-eslint": "^8.70.1",
     "vite": "^8.3.1",
     "vitest": "^5.0.1"
+  },
+  "build": {
+    "appId": "local.survivalchaos.remake",
+    "productName": "Survival Chaos",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "mac": {
+      "target": "dmg"
+    }
   }
 }

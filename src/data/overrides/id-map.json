@@ -1,0 +1,5 @@
+{
+  "_comment": "Maps remake ids to the object ids of the original map (fill in after `npm run extract`, see docs/EXTRACTION.md). Example: \"lordaeron.footman\": \"h000\"",
+  "units": {},
+  "upgrades": {}
+}

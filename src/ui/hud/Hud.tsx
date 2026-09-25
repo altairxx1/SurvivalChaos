@@ -30,7 +30,7 @@ function commandButtons(s: GameSession, e: Entity | undefined): Btn[] {
     const names = ['Left lane', 'Middle lane', 'Right lane'];
     const btns: Btn[] = order.map((dir, i) => {
       const t = sim.players[sim.map.laneTarget(me, dir)]!;
-      return { slot: i, hotkey: GRID_KEYS[i]!, icon: ['⬅️', '⬆️', '➡️'][i]!, bg: t.color + '66', label: t.name.slice(0, 10),
+      return { slot: i, hotkey: GRID_KEYS[i]!, icon: ['⬅️', '⬆️', '➡️'][i]!, bg: t.color + '66', label: reg.race(t.raceId).name,
         tip: { title: `${names[i]} → ${t.name}`, body: `Send toward ${t.name} (${reg.race(t.raceId).name})${t.alive ? '' : ' — eliminated, units will reroute'}.` },
         onClick: () => { if (lm.kind === 'hero') s.issue({ t: 'buyHero', player: me, hero: lm.id, lane: dir }); else s.issue({ t: 'buySpecial', player: me, unit: lm.id, lane: dir }); laneMode.value = null; audio.play('click'); } };
     });

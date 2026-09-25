@@ -85,6 +85,7 @@ function rawHeight(x: number, y: number, H: number, ld: number, bd: number, pond
 
 const C = (hex: string) => new THREE.Color(hex);
 const GRASS_A = C('#4f7a2c'), GRASS_B = C('#6c8f35'), GRASS_DARK = C('#35591f'), DIRT = C('#8a6a43'), DIRT_DARK = C('#6e5334');
+const BASE_EARTH = C('#8f7a52'), BASE_EARTH2 = C('#7a6a45');
 const STONE = C('#8d8474'), STONE_DARK = C('#6d6558'), ROCK = C('#6f6a62'), SAND = C('#b8a577'), PLAZA_C = C('#9a9180');
 
 export function buildTerrainMesh(info: TerrainInfo): THREE.Mesh {
@@ -119,7 +120,11 @@ function colorAt(info: TerrainInfo, x: number, y: number, h: number, out: THREE.
   const ld = info.laneDist(x, y);
   if (ld < ROAD + 90) { const t = smooth(Math.min(1, Math.max(0, (ROAD + 90 - ld) / 150))); out.lerp(n2 > 0.5 ? DIRT : DIRT_DARK, t * 0.95); }
   const bd = info.baseDist(x, y);
-  if (bd < 60) { const t = smooth(Math.min(1, (60 - bd) / 200)); out.lerp(n2 > 0.45 ? STONE : STONE_DARK, t * 0.85); }
+  if (bd < 60) {
+    // trampled earth across the base, cobbles only in the inner courtyard
+    const t = smooth(Math.min(1, (60 - bd) / 260)); out.lerp(n2 > 0.5 ? BASE_EARTH : BASE_EARTH2, t * 0.75);
+    if (bd < -900) { const k = smooth(Math.min(1, (-900 - bd) / 200)); const cob = (Math.floor(x / 64) + Math.floor(y / 64)) & 1; out.lerp(cob ? STONE : STONE_DARK, k * 0.55); }
+  }
   const r = Math.sqrt(x * x + y * y);
   if (r < PLAZA) { const ring = Math.abs(((r / 120) % 1) - 0.5) < 0.06 ? STONE_DARK : PLAZA_C; out.lerp(ring, smooth(Math.min(1, (PLAZA - r) / 120))); }
   if (h < WATER_LEVEL + 25) out.lerp(SAND, Math.min(1, (WATER_LEVEL + 25 - h) / 40));

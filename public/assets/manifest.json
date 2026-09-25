@@ -1,0 +1,11 @@
+{
+  "_comment": "Optional CC0 / CC-BY assets. The game runs without any of them (procedural models, synthesized audio). Run `npm run fetch-assets` to download; files land next to this manifest. Audio ids 'sfx.<name>' replace the synthesized effect of the same name, ids starting with 'music.' form the playlist.",
+  "entries": [
+    { "id": "pack.kaykit.adventurers", "kind": "model-pack", "license": "CC0-1.0", "source": "KayKit Character Pack: Adventurers by Kay Lousberg", "repo": "KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0", "file": "models/kaykit-adventurers/" },
+    { "id": "pack.kaykit.skeletons", "kind": "model-pack", "license": "CC0-1.0", "source": "KayKit Character Pack: Skeletons by Kay Lousberg", "repo": "KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0", "file": "models/kaykit-skeletons/" },
+    { "id": "pack.kaykit.dungeon", "kind": "model-pack", "license": "CC0-1.0", "source": "KayKit Dungeon Remastered by Kay Lousberg", "repo": "KayKit-Game-Assets/KayKit-Dungeon-Remastered-1.0", "file": "models/kaykit-dungeon/" },
+    { "id": "music.battle1", "kind": "audio", "license": "CC0/CC-BY (fill in)", "source": "Drop any CC0 or CC-BY battle track here, e.g. from opengameart.org", "url": "", "file": "audio/music/battle1.ogg" },
+    { "id": "sfx.sword", "kind": "audio", "license": "CC0 (fill in)", "source": "e.g. Kenney Impact Sounds (kenney.nl, CC0)", "url": "", "file": "audio/sfx/sword.ogg" },
+    { "id": "sfx.explosion", "kind": "audio", "license": "CC0 (fill in)", "source": "e.g. Kenney Sci-fi / Impact Sounds (CC0)", "url": "", "file": "audio/sfx/explosion.ogg" }
+  ]
+}

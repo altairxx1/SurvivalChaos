@@ -13,10 +13,10 @@ const B = (w: number, h: number, d: number, x = 0, y = 0, z = 0) => new THREE.Bo
 const Cy = (rt: number, rb: number, h: number, x = 0, y = 0, z = 0, s = 8) => new THREE.CylinderGeometry(rt, rb, h, s).translate(x, y + h / 2, z);
 const Co = (r: number, h: number, x = 0, y = 0, z = 0, s = 8) => new THREE.ConeGeometry(r, h, s).translate(x, y + h / 2, z);
 const Sp = (r: number, x = 0, y = 0, z = 0, d = 1) => new THREE.IcosahedronGeometry(r, d).translate(x, y, z);
-/** Gable roof: triangular cross-section w (along X) by h, extruded d along Z. */
-const prism = (w: number, h: number, d: number, x = 0, y = 0, z = 0) => {
-  const sh = new THREE.Shape(); sh.moveTo(-w / 2, 0); sh.lineTo(w / 2, 0); sh.lineTo(0, h); sh.closePath();
-  const g = new THREE.ExtrudeGeometry(sh, { depth: d, bevelEnabled: false }); g.translate(x, y, z - d / 2); return g;
+/** Gable roof: ridge along X of length len, height h, spanning width wid along Z (with a small overhang). */
+const prism = (len: number, h: number, wid: number, x = 0, y = 0, z = 0) => {
+  const sh = new THREE.Shape(); sh.moveTo(-wid / 2, 0); sh.lineTo(wid / 2, 0); sh.lineTo(0, h); sh.closePath();
+  const g = new THREE.ExtrudeGeometry(sh, { depth: len, bevelEnabled: false }); g.rotateY(Math.PI / 2); g.translate(x - len / 2, y, z); return g;
 };
 
 function tower(st: Style, r: number, h: number, x: number, z: number, parts: Part[]) {
@@ -56,7 +56,7 @@ export function buildBuildingModel(kind: BuildingKind, st: Style, radius: number
       base(r * 1.9, r * 1.4);
       if (st.shape === 'tree') { parts.push({ geo: Cy(r * 0.35, r * 0.55, r * 1.2, 0, 18, 0, 7), color: '#6a5038' }, { geo: Sp(r * 0.8, 0, r * 1.5, 0, 0), color: '#5a4a9a' }); height = r * 2.2; }
       else if (st.shape === 'hut') { parts.push({ geo: Cy(r * 0.75, r * 0.85, r * 0.6, 0, 18, 0, 6), color: wall }, { geo: Co(r * 1.1, r * 0.9, 0, 18 + r * 0.6, 0, 6), color: roof }); height = r * 1.6; }
-      else { parts.push({ geo: B(r * 1.6, r * 0.65, r * 1.05, 0, 18, 0), color: wall }, { geo: prism(r * 1.2, r * 0.6, r * 1.7, 0, 18 + r * 0.65, 0), color: roof }, { geo: B(12, r * 0.4, r * 0.35, r * 0.8, 18, 0), color: '#3a2a1a' }); height = r * 1.5; }
+      else { parts.push({ geo: B(r * 1.6, r * 0.65, r * 1.05, 0, 18, 0), color: wall }, { geo: prism(r * 1.75, r * 0.6, r * 1.2, 0, 18 + r * 0.65, 0), color: roof }, { geo: B(12, r * 0.4, r * 0.35, r * 0.8, 18, 0), color: '#3a2a1a' }); height = r * 1.5; }
       banners.push(new THREE.Vector3(r * 0.85, r * 1.1, r * 0.5), new THREE.Vector3(r * 0.85, r * 1.1, -r * 0.5));
       break;
     }
@@ -76,7 +76,7 @@ export function buildBuildingModel(kind: BuildingKind, st: Style, radius: number
     case 'forge': {
       base(r * 1.7, r * 1.5);
       parts.push({ geo: st.shape === 'tree' ? Cy(r * 0.5, r * 0.7, r * 0.8, 0, 18, 0, 7) : B(r * 1.3, r * 0.6, r * 1.1, 0, 18, 0), color: st.shape === 'tree' ? '#6a5038' : wall });
-      parts.push({ geo: st.shape === 'hut' || st.shape === 'tree' ? Co(r * 0.95, r * 0.6, 0, 18 + r * (st.shape === 'tree' ? 0.8 : 0.6), 0, 6) : prism(r * 1.1, r * 0.45, r * 1.4, 0, 18 + r * 0.6, 0), color: roof });
+      parts.push({ geo: st.shape === 'hut' || st.shape === 'tree' ? Co(r * 0.95, r * 0.6, 0, 18 + r * (st.shape === 'tree' ? 0.8 : 0.6), 0, 6) : prism(r * 1.45, r * 0.5, r * 1.25, 0, 18 + r * 0.6, 0), color: roof });
       parts.push({ geo: B(r * 0.28, r * 1.3, r * 0.28, -r * 0.4, 18, -r * 0.35), color: '#5a524a' });
       parts.push({ geo: B(30, 18, 18, r * 0.8, 18, r * 0.3), color: '#3a3a3a' });
       height = r * 1.5; glows.push(new THREE.Vector3(r * 0.66, 30, 0)); banners.push(new THREE.Vector3(r * 0.7, r * 1.2, -r * 0.6));

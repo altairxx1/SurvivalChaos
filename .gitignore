@@ -9,3 +9,7 @@ tools/wiki/.cache/
 original/extracted/
 *.log
 .DS_Store
+public/assets/models/
+public/assets/audio/
+public/assets/*.zip
+src/data/extracted/
