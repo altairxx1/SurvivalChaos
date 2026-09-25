@@ -21,6 +21,7 @@ Click **Quick Start (You vs 3 Bots)** or **Single Player** to configure the lobb
 | `npm run dev` | Vite dev server, reachable on the LAN (`--host`) |
 | `npm run build` / `npm run preview` | Production build in `dist/` and a LAN-reachable preview server |
 | `npm test` | Simulation, determinism and extraction tests (vitest) |
+| `npm run e2e` | Browser smoke test (Playwright; `npx playwright install chromium` once) |
 | `npm run sim:headless -- 10 1 60 lordaeron,orc,undead,nightelf` | Bot-vs-bot games without graphics (balance checks) |
 | `npm run electron:start` | Build and open the desktop app; it also serves the game on port 4173 for the LAN |
 | `npm run electron:build` | Package a portable app with electron-builder (`release/`) |

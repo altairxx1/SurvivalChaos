@@ -19,7 +19,8 @@
     "electron:start": "npm run build && electron .",
     "electron:build": "npm run build && electron-builder",
     "build-packs": "tsx tools/extract/build-packs.ts",
-    "wiki": "tsx tools/wiki/scrape.ts"
+    "wiki": "tsx tools/wiki/scrape.ts",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@preact/signals": "^2.11.2",
